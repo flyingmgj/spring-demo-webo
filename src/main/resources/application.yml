@@ -1,0 +1,54 @@
+spring:
+  datasource:
+    url: jdbc:mysql://47.101.46.239:3306/jdbc
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+#配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall
+#log4j这个不能配置log4j否则数据源Datasource绑定不上
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+#设置国际化的基础名---语言
+  messages:
+    basename: i18n.login
+#禁用模板引擎(否则页面会被缓存)---》修改页面后，Ctrl+F9重新编译即可生效 --》便于开发
+  thymeleaf:
+    cache: false
+##配置elastic
+#  data:
+#    elasticsearch:
+#      cluster-name: elasticsearch
+#      cluster-nodes: 47.101.46.239:9300
+#配置amqp消息队列
+  rabbitmq:
+    host: 47.101.46.239
+    username: guest
+    password: guest
+#配置redis
+  redis:
+    host: 47.101.46.239
+    password: 123
+
+#日志打印
+logging:
+  level:
+    com.magee.cache.mapper: debug
+
+#mybatis相关配置
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: false
